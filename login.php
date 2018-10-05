@@ -78,7 +78,7 @@
                
                <form action = "" method = "post">
                   <label>Username:</label><input type = "text" name = "UserID" class = "box"/><br /><br />
-                  <label>Password:</label><input type = "password" name = "Password" class = "box" /><br/><br />
+                  <div><label>Password:</label><input type = "password" name = "Password" class = "box" /><br/><br /></div>
                   <input type = "submit" value = " Submit " class="button"/><br />
                </form>
                
