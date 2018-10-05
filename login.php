@@ -77,8 +77,8 @@
             <div style = "margin:30px">
                
                <form action = "" method = "post">
-                  <label>Username:</label><input type = "text" name = "UserID" class = "box"/><br /><br />
-                  <div><label>Password:</label><input type = "password" name = "Password" class = "box" /><br/><br /></div>
+                  <label style="display: inline-block;">Username:</label><input type = "text" name = "UserID" class = "box"/><br /><br />
+                  <label style="display: inline-block;">Password:</label><input type = "password" name = "Password" class = "box" /><br/><br />
                   <input type = "submit" value = " Submit " class="button"/><br />
                </form>
                
