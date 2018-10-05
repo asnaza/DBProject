@@ -87,7 +87,7 @@ if($_POST){
             <td></td>
             <td>
                 <input type='submit' value='Save' class='btn btn-primary' />
-		<a href='users.php' class='btn btn-danger'>Back</a>
+		<a href='product.php' class='btn btn-danger'>Back</a>
             </td>
         </tr>
     </table>

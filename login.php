@@ -44,7 +44,7 @@
          }
          .box {
             border:#666666 none 1px;
-            display: inline-block;
+          
 	    background-color: #dcdcdc;	
          }
 	#pos{

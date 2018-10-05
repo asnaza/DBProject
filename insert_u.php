@@ -66,6 +66,7 @@ if($_POST){
         </tr>
         <tr>
 	<td>Sales Person</td>
+	
 	<td>
 	<?php
 	$stmt = $con->prepare("select Name from Salesperson_13009");

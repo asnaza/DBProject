@@ -46,7 +46,7 @@ try {
     $UserName = $row['UserID'];
     $Password = $row['Password'];
     $Active = $row['Active'];
-    $PersonID = $row['Salesperson'];
+    $Salesperson = $row['Salesperson'];
 }
  
 // show error
@@ -115,6 +115,7 @@ if($_POST){
         </tr>
 	 <tr>
 	<td>Sales Person</td>
+	
 	<td>
 	<?php
 	$stmt = $con->prepare("select Name from Salesperson_13009");
