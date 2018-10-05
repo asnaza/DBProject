@@ -90,7 +90,7 @@ if($_POST){
             <td></td>
             <td>
                 <input type='submit' value='Save' class='btn btn-primary' />
-		
+		<a href='CreateTable.php' class='btn btn-danger'>Back</a>
             </td>
         </tr>
     </table>
