@@ -33,7 +33,7 @@ if($_POST){
 	
         
 	$stmt->bindParam(':Name', $name);
-        $stmt->bindParam(':SalespersonID', $salespersonID);
+        $stmt->bindParam(':SalespersonID', $salespersonid);
         $stmt->bindParam(':ContactNo', $contactno);
 	$stmt->bindParam(':CustomerAssigned', $customerassigned);
 	
@@ -59,7 +59,10 @@ if($_POST){
             <td>Name</td>
             <td><input type='text' name='Name' class='form-control' /></td>
         </tr>
-        
+        <tr>
+            <td>Salesperson ID</td>
+            <td><input type='text' name='SalespersonID' class='form-control' /></td>
+        </tr>
         <tr>
             <td>Contact Number</td>
             <td><input type='text' name='ContactNo' class='form-control' /></td>
