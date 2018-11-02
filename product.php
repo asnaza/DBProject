@@ -15,7 +15,7 @@
 }
  </style>
    <nav class="navbar navbar-expand-lg navbar-default ">
-                <a class="navbar-brand" href="#" style= "text-transform: uppercase; font-weight: bold; margin-bottom: 4px;">Asna Table</a>
+                <a class="navbar-brand" href="#" style= "text-transform: uppercase; font-weight: bold; margin-bottom: 4px;">Paint Shop</a>
 
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
