@@ -15,7 +15,7 @@
 }
  </style>
    <nav class="navbar navbar-expand-lg navbar-default ">
-                <a class="navbar-brand" href="#" style= "text-transform: uppercase; font-weight: bold; margin-bottom: 4px;">Asna Table</a>
+                <a class="navbar-brand" href="#" style= "text-transform: uppercase; font-weight: bold; margin-bottom: 4px;">Paint Shop</a>
 
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,10 +89,10 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo '<table>
 	 <tr id="header">
-	 <th>ShopID</th>
-	 <th>ShopName</th>
-	 <th>ContactPerson</th>
-	 <th>ContactNo</th>
+	 <th>Shop ID</th>
+	 <th>Shop Name</th>
+	 <th>Contact Person</th>
+	 <th>Contact No</th>
 	 <th>Area</th>
 	 <th>Address</th>
 	 <th>Coordinates</th>
@@ -110,6 +110,7 @@ if ($result->num_rows > 0) {
 	     <td>".$row["Coordinates"]."</td>";  
 	echo "<td>";
             // we will use this links on next part of this post
+	    echo "<a href='invoice.php?id={$row["ShopID"]}' class='btn btn-success m-r-1em'>Invoice</a>";
             echo "<a href='update.php?id={$row["ShopID"]}' class='btn btn-primary m-r-1em'>Edit</a>";
  	echo " ";
             // we will use this links on next part of this post
@@ -144,7 +145,7 @@ table, th, td {
 }
 table{
    position: fixed;
-	   top: 50%;
+	   top: 56%;
 	   left: 50%;
 	   transform: translate(-50%,-50%);
 }
