@@ -1,3 +1,6 @@
+<?php
+	include_once 'config.php';
+?>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -66,24 +69,11 @@
 
 <?php
 
-$servername = "localhost";
-$username = "asna";
-$password = "asna";
-$dbname = "AsnaTable";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection.
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-	//echo 'fqwafadfv';
-}
-
 $sql = "SELECT * FROM Salesperson_13009";
-$result = $conn->query($sql);
-//$result = mysqli_query($conn, $query);
+$result = mysqli_query($conn, $sql);
+$resultCheck = mysqli_num_rows($result);
 
-if ($result->num_rows > 0) {
+if ($resultCheck  > 0) {
     echo '<table>
 	 <tr id="header">
 	 <th>Name</th>
@@ -93,7 +83,7 @@ if ($result->num_rows > 0) {
 	 <th>Edit/Delete</th>
 	 </tr>';
     // output data of each row
-    while($row = $result->fetch_assoc()) {
+    while($row = mysqli_fetch_assoc($result)) {
         echo "<tr>
 	     <td>".$row["Name"]."</td>
 	     <td>".$row["SalespersonID"]."</td>

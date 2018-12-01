@@ -1,92 +1,34 @@
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Invoice</title>
-    <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style.css">
 </head>
-
- <body>
- <style>
-.navbar-default {
-    background-color: #dcdcdc;
-    border-color: #E7E7E7;
-}
- </style>
-   <nav class="navbar navbar-expand-lg navbar-default ">
-                <a class="navbar-brand" href="#" style= "text-transform: uppercase; font-weight: bold; margin-bottom: 4px;">Paint Shop</a>
-
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                  <ul class="navbar-nav">
-                    <li class="nav-item">
-                      <a class="nav-link" href="welcome.php">Home</a>
-                    </li>
-                    
-		    <form action='logout.php'>
-			<input type="submit" value="Logout" style="background-color: #dcdcdc; border: none; color: blue; margin-top: 8px;">
-		    </form>
-                  </ul>
-                </div>
-              </nav>
-<!-- 
-<div class='container'>
-
-        <input type="button" class="btn btn-success" value="Put Your Text Here" 
-        onclick="window.location.href='http://www.hyperlinkcode.com/button-links.php'" />
-
-        <input type="button" class="btn btn-success" value="Put Your Text Here" 
-        onclick="window.location.href='http://www.hyperlinkcode.com/button-links.php'" />
-        <input type="button" class="btn btn-success" value="Put Your Text Here" 
-        onclick="window.location.href='http://www.hyperlinkcode.com/button-links.php'" />
-        <input type="button" class="btn btn-success" value="Put Your Text Here" 
-        onclick="window.location.href='http://www.hyperlinkcode.com/button-links.php'" />
-    </div> -->
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-   
- </body>
-</html> 
+</html>
 
 <?php
-include('config.php');
+include_once 'config.php';
 
-$a=isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
+$a=isset($_GET['ShopID']) ? $_GET['ShopID'] : die('ERROR: Record ID not found.');
 
 $searchQ = mysqli_query($conn,"SELECT * FROM Customer_13009 WHERE ShopID = $a");
-//$sql = "SELECT * FROM Customer_13009 WHERE ShopID = $a";
 	pr($searchQ);
 function pr($result2){
-//$result2 = $conn->query($sql);
+
 if ($result2->num_rows > 0) {
-          echo "<div class='container'> 
-         <table align='center'>
-		
+          echo '<div class="container"> 
+         <table align="center">
+	<h3 align="center" id="title">INVOICE HEADER</h3>	
 		
 	
- <tr>
-	 <th>Shop ID</th>
-	 <th>Shop Name</th>
-	 <th>Contact Person</th>
-	 <th>Contact Number</th>
+ 	<tr id="header">
+	 <th>Customer ID</th>
+	 <th>Name</th>
+	 <th>Contact name</th>
+	 <th>ContactNumber</th>
 	 <th>Area</th>
 	 <th>Address</th>
 	 <th>Coordinates</th>
-	 <th>Edit/Delete</th>
-	 </tr>";
+	 <th>Action</th>
+	 </tr>';
     // output data of each row
     while($row = $result2->fetch_assoc()) {
          echo "<tr>
@@ -100,7 +42,7 @@ if ($result2->num_rows > 0) {
 	       <td>".$row["Coordinates"]."</td>";  
 	echo "<td>";
             // we will use this links on next part of this post
-            echo "<a href='http://localhost/DBProject/CreateTable.php' class='btn btn-primary'>BACK</a>";
+            echo "<a href='CreateTable.php' class='btn btn-primary'>BACK</a>";
  	echo " ";
 	echo "</td>";	 echo "</tr>";
     }
@@ -113,50 +55,51 @@ if ($result2->num_rows > 0) {
 
 }
 
+
 $searchQ22 = mysqli_query($conn,"SELECT * FROM Invoice_13009 WHERE ShopID = $a");
 if ($searchQ22->num_rows > 0){
 
 	 echo '<div class="container"> 
          <table align="center">
-		
+	<br>
+	<br>
+	<h3 align="center" id="title"> INVOICE </h3>	
 		
 	
- <tr id="header">
-	
+ 	<tr id="header">
 	 <th>ShopID</th>
-	 <th>ShopName</th>
-	 <th>ProductCode</th>
+	 <th>Date</th>
+	 <th>SalespersonID</th>
 	 <th>Brand</th>
-	 <th>Type</th>
-	 <th>Item</th>
-	 <th>Size</th>
+	 <th>ProductCode</th>
 	 <th>Quantity</th>
+	 <th>Rate</th>
 	 <th>Price</th>
+	 <th>ACTION</th>
 	 </tr>';
     // output data of each row
     while($row = $searchQ22->fetch_assoc()) {
 	      
  echo "<tr>
 	     <td>".$row["ShopID"]."</td>
-	     <td>".$row["ShopName"]."</td>
-	     <td>".$row["ProductCode"]."</td>
+	     <td>".$row["Date"]."</td>
+	     <td>".$row["SalespersonID"]."</td>
 	     <td>".$row["Brand"]."</td>
-	     <td>".$row["Type"]."</td>
-	     <td>".$row["Item"]."</td>
-	     <td>".$row["Size"]."</td>
+	     <td>".$row["ProductCode"]."</td>
 	     <td>".$row["Quantity"]."</td>
-	     <td>".$row["Price"]."</td>";  
+	     <td>".$row["Rate"]."</td>
+	       <td>".$row["Price"]."</td>";  
 	echo "<td>";
             // we will use this links on next part of this post
-            echo "<a href='http://localhost/DBProject/invoice_u.php?id={$row["SNo"]}' class='btn btn-primary'>Edit</a>";
+            echo "<a href='invoice_u.php?id={$row["SNo"]}' class='btn btn-primary m-r-1em'>Edit</a>";
  	echo " ";
             // we will use this links on next part of this post
-            echo "<a href='http://localhost/DBProject/invoice_d.php?id={$row["SNo"]}'  class='btn btn-primary'>Delete</a>";echo "</td>";
+            echo "<a href='invoice_d.php?id={$row["SNo"]}'  class='btn btn-primary m-r-1em'>Delete</a>";echo "</td>";
 	 echo "</tr>";
     }
     echo "</table>";
 } else {
-    echo "No results";
+    echo "0 results";
 }
 
 
@@ -178,14 +121,14 @@ $e = $_POST['e'];
 	$ROW1 = $RES1->fetch_assoc();
 	$c = $ROW1['Brand'];
 	$d = $ROW1['SalesPrice'];
-	
+	$pp= date("d-m-y");
 	$searchQ22 = mysqli_query($conn,"SELECT * FROM Customer_13009 WHERE ShopID = $a");
 	$row = $searchQ22->fetch_assoc();	
 	$name= $row['ShopName'];	
 
 	
-	mysqli_query($conn,"INSERT INTO Invoice_13009 VALUES ('',$x,'$name',$b,'$c',$d,$e,($e*$d)) ");
-	header('Location:http://localhost/DBProject/invoice.php?id='.$a.'');
+	mysqli_query($conn,"INSERT INTO Invoice_13009 VALUES ('',$x,'$name',$b,'$pp','$c',$d,$e,($e*$d)) ");
+	header('Location:invoice.php?id='.$a.'');
    
 	
 function pri($result2){
@@ -197,27 +140,24 @@ if ($result2->num_rows > 0) {
 
  <tr>
 	 <th>ShopID</th>
-	<th>ShopName</th>
+	 <th>Date</th>
+	 <th>SalespersonID</th>
+	 <th>Brand</th>
 	 <th>ProductCode</th>
-	<th>Brand</th>
-	 <th>Type</th>
-	 <th>Item</th>
-	 <th>Size</th>
 	 <th>Quantity</th>
-	 <th>Price</th>
+	 <th>Rate</th>
+	 <th>PriceT</th>
 	 </tr>";
     // output data of each row
     while($row = $searchQ22->fetch_assoc()) {
          echo "<tr>
 	     <td>".$row["ShopID"]."</td>
-	 <td>".$row["ShopName"]."</td>
-	    	    
- <td>".$row["ProductCode"]."</td>
+	     <td>".$row["Date"]."</td>
+	     <td>".$row["SalespersonID"]."</td>
 	     <td>".$row["Brand"]."</td>	
-	     <td>".$row["Type"]."</td>
-	     <td>".$row["Item"]."</td>
-	     <td>".$row["Size"]."</td>
+	     <td>".$row["ProductCode"]."</td>
 	     <td>".$row["Quantity"]."</td>
+	     <td>".$row["Rate"]."</td>
 	     <td>".$row["Price"]."</td>
 	 </td>";
 	 echo "</tr>";
@@ -239,24 +179,24 @@ if ($result2->num_rows > 0) {
 
 
 <html>
-
-<form action = "" method="post" autocomplete="on"/>
+<br>
+<br>
+<form action = "" method="post" autocomplete="on" align='center'/>
 <fieldset>
-<legend>INVOICE CRUD</legend>
-<p><label class="field" for="ShopID#">ShopID#:<br> <input   type= "text" onfocus="this.value=''" name ="a" /></p></br>
-<p><label class="field" for="ProductCode">ProductCode:<br><input  type= "text" name ="b" /></p></br>
-<p><label class="field" for="Quantity"> Quantity: <br><input  type= "text" name ="e" /></p></br>
-
+<br>
+<legend align='center' id='title'>ENTER NEW DATA</legend>
+<p><label class="field" for="ShopID"><input   type= "text" onfocus="this.value=''" name ="a" placeholder='CustomerID'/></p>
+<p><label class="field" for="ProductCode"><input  type= "text" name ="b"  placeholder='ProductCode'/></p>
+<p><label class="field" for="Quantity"><input  type= "text" name ="e" placeholder='Quantity'/></p>
 <input type = "submit" name = "INSERT" value ="INSERT" />
 <input type = "submit" name = "SEARCH" value ="FIND" />
 </fieldset>
 </form>
-
-
 <style>
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+	
 }
 #header{
   background-color: #333333;
@@ -264,12 +204,6 @@ table, th, td {
   text-transform: uppercase;
   text-align: center;	
   border: none;
-}
-table{
-   position: fixed;
-	   top: 50%;
-	   left: 50%;
-	   transform: translate(-50%,-50%);
 }
 th, td {
 		
@@ -282,24 +216,36 @@ background-color: ffffff;
 table#t01 {
     width: 100%;    
     background-color: #f1f1c1;
-}	
+
+}
 body, html{
  height: 100%;
     background-image: url('bgphp.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    
-}
-.container{
-    display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  justify-content: space-between;
+   
+
 }
 .btn{
    opacity: 0.80;
-}	
-</style>
+}
+::-webkit-scrollbar{
+	width: 10px;
+}
+::-webkit-scrollbar-track{
+	background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb{
+	background: #888;
+}
+::-webkit-scrollbar-thumb-hover{
+	background: #555;
+}
+#title{
+	
+	font-weight: bold;
+	color: #ffffff;
+}
 
+</style>
 </html>

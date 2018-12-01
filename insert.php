@@ -1,3 +1,6 @@
+<?php
+  include_once 'config.php';
+?>
 <!DOCTYPE HTML>
 <html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -8,55 +11,40 @@
 </div>
       
 <?php
-$host = "localhost";
-$db_name = "AsnaTable";
-$username = "asna";
-$password = "asna";
-  
-try {
-    $con = new PDO("mysql:host={$host};dbname={$db_name}", $username, $password);
-}
-catch(PDOException $exception){
-    echo "Connection error: " . $exception->getMessage();
+
+
+if(isset($_POST['submit'])){
+	
+	$shopid=($_POST['ShopID']); 
+        $shopname=($_POST['ShopName']);
+        $contactperson=($_POST['ContactPerson']);
+        $contactno=($_POST['ContactNo']);
+	$area=($_POST['Area']);
+	$address=($_POST['Address']);
+	$coordinates=($_POST['Coordinates']);
+    
+        $sql = "INSERT INTO Customer_13009 (ShopID,ShopName,ContactPerson,ContactNo,Area,Address,Coordinates) VALUES
+		(?,?,?,?,?,?,?)";
+	$stmt = mysqli_stmt_init($conn);
+ 	
+	if(!mysqli_stmt_prepare($stmt, $sql)){
+
+	   echo "<div class='alert alert-danger'>Unable to save record.</div>";
+		header('location: insert.php');
+	}else{
+
+	   mysqli_stmt_bind_param($stmt, "sssssss", $shopid, $shopname, $contactperson, $contactno, $area, $address, $coordinates);
+	   mysqli_stmt_execute($stmt);
+	   echo "<div class='alert alert-success'>Record was saved.</div>";
+	   header('Location: CreateTable.php');
+
+	}
+ 
 }
 
-if($_POST){
-    try{
-        $query = "INSERT INTO Customer_13009 SET ShopID=:ShopID,ShopName=:ShopName, ContactPerson=:ContactPerson, ContactNo=:ContactNo, Area=:Area, Address=:Address, Coordinates=:Coordinates";
- 
-        $stmt = $con->prepare($query);
-
-	$shopid=htmlspecialchars(strip_tags($_POST['ShopID'])); 
-        $shopname=htmlspecialchars(strip_tags($_POST['ShopName']));
-        $contactperson=htmlspecialchars(strip_tags($_POST['ContactPerson']));
-        $contactno=htmlspecialchars(strip_tags($_POST['ContactNo']));
-	$area=htmlspecialchars(strip_tags($_POST['Area']));
-	$address=htmlspecialchars(strip_tags($_POST['Address']));
-	$coordinates=htmlspecialchars(strip_tags($_POST['Coordinates']));
- 
-        $stmt->bindParam(':ShopID', $shopid);
-	$stmt->bindParam(':ShopName', $shopname);
-        $stmt->bindParam(':ContactPerson', $contactperson);
-        $stmt->bindParam(':ContactNo', $contactno);
-	$stmt->bindParam(':Area', $address);
-	$stmt->bindParam(':Address', $area);
-	$stmt->bindParam(':Coordinates', $coordinates);
-                  
-        if($stmt->execute()){
-            echo "<div class='alert alert-success'>Record was saved.</div>";
-        }else{
-            echo "<div class='alert alert-danger'>Unable to save record.</div>";
-        }
-         
-    }
-     
-    catch(PDOException $exception){
-        die('ERROR: ' . $exception->getMessage());
-    }
-}
 ?>
  
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+<form action="insert.php" method="POST">
     <table class='table table-hover table-responsive table-bordered'>
 	<tr>
             <td>Shop ID</td>
@@ -89,8 +77,8 @@ if($_POST){
         <tr>
             <td></td>
             <td>
-                <input type='submit' value='Save' class='btn btn-primary' />
-		<a href='CreateTable.php' class='btn btn-danger'>Back</a>
+		<button type = "submit" name="submit" class='btn btn-primary'>Save</button>
+                <a href='CreateTable.php' class='btn btn-danger'>Back</a>
             </td>
         </tr>
     </table>
@@ -98,8 +86,7 @@ if($_POST){
           
 </div>
       
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <style>
 body, html{
  height: 100%;

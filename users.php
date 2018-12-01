@@ -1,3 +1,9 @@
+
+<?php
+//Connecting DB
+include_once 'config.php';
+?>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -73,17 +79,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : "";
 if($action=='deleted'){
     echo "<div class='alert alert-success'>Record was deleted.</div>";
 }
-$servername = "localhost";
-$username = "asna";
-$password = "asna";
-$dbname = "AsnaTable";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 $sql = "SELECT * FROM Users_13009";
 $result = $conn->query($sql);

@@ -1,3 +1,9 @@
+
+<?php
+//Connecting DB
+include_once 'config.php';
+?>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -69,25 +75,13 @@
 
 
 
-$servername = "localhost";
-$username = "asna";
-$password = "asna";
-$dbname = "AsnaTable";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection.
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-	//echo 'fqwafadfv';
-}
+$sql = "SELECT * FROM Customer_13009;";
+$result = mysqli_query($conn, $sql);
+$resultCheck = mysqli_num_rows($result);
 
-$sql = "SELECT * FROM Customer_13009";
-$result = $conn->query($sql);
-//$result = mysqli_query($conn, $query);
-
-if ($result->num_rows > 0) {
-    echo '<table>
+if ($resultCheck > 0) {
+    echo '<table >
 	 <tr id="header">
 	 <th>Shop ID</th>
 	 <th>Shop Name</th>
@@ -99,7 +93,7 @@ if ($result->num_rows > 0) {
 	 <th>Edit/Delete</th>
 	 </tr>';
     // output data of each row
-    while($row = $result->fetch_assoc()) {
+    while($row = mysqli_fetch_assoc($result)) {
         echo "<tr>
 	     <td>".$row["ShopID"]."</td>
 	     <td>".$row["ShopName"]."</td>
@@ -110,7 +104,7 @@ if ($result->num_rows > 0) {
 	     <td>".$row["Coordinates"]."</td>";  
 	echo "<td>";
             // we will use this links on next part of this post
-	    echo "<a href='invoice.php?id={$row["ShopID"]}' class='btn btn-success m-r-1em'>Invoice</a>";
+	    echo "<a href='invoice.php?ShopID={$row["ShopID"]}' class='btn btn-success m-r-1em'>Invoice</a>";
             echo "<a href='update.php?id={$row["ShopID"]}' class='btn btn-primary m-r-1em'>Edit</a>";
  	echo " ";
             // we will use this links on next part of this post
@@ -135,6 +129,7 @@ $conn->close();
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+	
 }
 #header{
   background-color: #333333;
@@ -148,6 +143,7 @@ table{
 	   top: 56%;
 	   left: 50%;
 	   transform: translate(-50%,-50%);
+
 }
 th, td {
 		
@@ -160,13 +156,15 @@ background-color: ffffff;
 table#t01 {
     width: 100%;    
     background-color: #f1f1c1;
+
 }	
 body, html{
  height: 100%;
     background-image: url('bgphp.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    
+   
+
 }
 .container{
     display: flex;
@@ -177,7 +175,19 @@ body, html{
 }
 .btn{
    opacity: 0.80;
-}	
+}
+::-webkit-scrollbar{
+	width: 10px;
+}
+::-webkit-scrollbar-track{
+	background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb{
+	background: #888;
+}
+::-webkit-scrollbar-thumb-hover{
+	background: #555;
+}
 </style>
 <script type='text/javascript'>
 // confirm record deletion

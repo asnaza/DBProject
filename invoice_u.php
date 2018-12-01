@@ -1,5 +1,5 @@
 <?php
-include('config.php');
+include_once 'config.php';
 
 $a=isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
 $Serial=$a;
@@ -13,21 +13,21 @@ $searchQ = mysqli_query($conn,"SELECT * FROM Customer_13009 WHERE ShopID = $aaa"
 	pr($searchQ);}
 function pr($result2){
 if ($result2->num_rows > 0) {
-          echo "<div class='container'> 
-         <table align='center'>
-		
+          echo '<div class="container"> 
+         <table align="center">
+	<h3 align="center" id="title">INVOICE HEADER</h3>	
 		
 	
- <tr>
-	 <th>Shop ID</th>
-	 <th>Shop Name</th>
-	 <th>Contact Person</th>
-	 <th>Contact Number</th>
+ 	<tr id="header">
+	 <th>Customer ID</th>
+	 <th>Name</th>
+	 <th>Contact name</th>
+	 <th>ContactNumber</th>
 	 <th>Area</th>
 	 <th>Address</th>
 	 <th>Coordinates</th>
-	 <th>Edit/Delete</th>
-	 </tr>";
+	 <th>Action</th>
+	 </tr>';
     // output data of each row
     while($row = $result2->fetch_assoc()) {
          echo "<tr>
@@ -36,12 +36,10 @@ if ($result2->num_rows > 0) {
 	     <td>".$row["ContactPerson"]."</td>
 	     <td>".$row["ContactNo"]."</td>
 	     <td>".$row["Area"]."</td>
-	     <td>".$row["Address"]."</td>
-		
-	       <td>".$row["Coordinates"]."</td>";  
+	     <td>".$row["Address"]."</td>" 
 	echo "<td>";
             // we will use this links on next part of this post
-            echo "<a href='http://localhost/DBProject/CreateTable.php' class='btn btn-primary'>BACK</a>";
+            echo "<a href='http://localhost/Newproject/customer.php' class='btn btn-primary'>BACK</a>";
  	echo " ";
 	echo "</td>";	 echo "</tr>";
     }
@@ -57,43 +55,44 @@ if ($result2->num_rows > 0) {
 $searchQ22 = mysqli_query($conn,"SELECT * FROM Invoice_13009 WHERE SNo = $Serial");
 if ($searchQ22->num_rows > 0){
 
-	 echo "<div class='container'> 
-         <table align='center'>
-		
+	  echo '<div class="container"> 
+         <table align="center">
+	<br>
+	<br>
+	<h3 align="center" id="title"> INVOICE </h3>	
 		
 	
- <tr>
+ 	<tr id="header">
 	 <th>ShopID</th>
-	 <th>ShopName</th>
-	 <th>ProductCode</th>
+	 <th>Date</th>
+	 <th>SalespersonID</th>
 	 <th>Brand</th>
-	 <th>Type</th>
-	 <th>Item</th>
-	 <th>Size</th>
+	 <th>ProductCode</th>
 	 <th>Quantity</th>
+	 <th>Rate</th>
 	 <th>Price</th>
-	 <th>Edit/Delete</th>
-	 </tr>";
+	 <th>ACTION</th>
+	 </tr>';
     // output data of each row
     while($row = $searchQ22->fetch_assoc()) {
-$productID=$row["ProductCode"];
-$QTyy=$row["Quantity"];
+$productID=$row["PRODUCT_ID"];
+$QTyy=$row["QTY"];
 	      
- echo "<tr>
+  echo "<tr>
 	     <td>".$row["ShopID"]."</td>
-	     <td>".$row["ShopName"]."</td>
-	     <td>".$row["ProductCode"]."</td>
+	     <td>".$row["Date"]."</td>
+	     <td>".$row["SalespersonID"]."</td>
 	     <td>".$row["Brand"]."</td>
-	     <td>".$row["Type"]."</td>
-	     <td>".$row["Item"]."</td>
-	     <td>".$row["Size"]."</td>
+	     <td>".$row["ProductCode"]."</td>
+	     <td>".$row["Quantity"]."</td>
+	     <td>".$row["Rate"]."</td>
 	       <td>".$row["Price"]."</td>";  
 	echo "<td>";
             // we will use this links on next part of this post
-            echo "<a href='http://localhost/DBProject/invoice_u.php?id={$row["SNo"]}' class='btn btn-primary'>Edit</a>";
+            echo "<a href='http://localhost/Newproject/edinvoice.php?id={$row["SNo"]}' class='btn btn-primary m-r-1em'>Edit</a>";
  	echo " ";
             // we will use this links on next part of this post
-            echo "<a href='http://localhost/DBProject/invoice_d.php?id={$row["SNo"]}'  class='btn btn-primary'>Delete</a>";echo "</td>";
+            echo "<a href='http://localhost/Newproject/delinvoice.php?id={$row["SNo"]}'  class='btn btn-danger'>Delete</a>";echo "</td>";
 	 echo "</tr>";
     }
     echo "</table>";
@@ -110,7 +109,7 @@ $QTyy=$row["Quantity"];
 	
 
 mysqli_query($conn,"UPDATE Invoice_13009 SET ProductCode=$b1, Quantity=$c1 WHERE SNo=$Serial ");
-header('Location:http://localhost/DBProject/invoice.php?id='.$aaa.'');
+header('Location:invoice.php?id='.$aaa.'');
 		 
 }
 
@@ -124,8 +123,8 @@ header('Location:http://localhost/DBProject/invoice.php?id='.$aaa.'');
 <form action = "" method="post" autocomplete="on"/>
 <fieldset>
 <legend>Customer CRUD</legend>
-<p><label class="field" for="ShopID#">ShopID#:<br> <input   type= "text" name ="a" value= <?php echo $aaa; ?> /></p></br>
-<p><label class="field" for="ProductCode">ProductCode: <br><input type= "text" name ="b" value=<?php echo $productID; ?> ></p></br>
+<p><label class="field" for="ShopID">CustomerID#:<br> <input   type= "text" name ="a" value= <?php echo $aaa; ?> /></p></br>
+<p><label class="field" for="ProductCode">PRODUCT_ID: <br><input type= "text" name ="b" value=<?php echo $productID; ?> ></p></br>
 <p><label class="field" for="Quantity"> Quantity:<br> <input type= "text" name ="c" value= <?php echo $QTyy; ?>></p></br>
 
 
@@ -161,7 +160,7 @@ width:100%;
 }
 body{
     background-color: lightgrey;
-background-image: url('bgphp.jpg');
+background-image: url('images.jpeg');
     background-repeat: no-repeat;
     background-size: cover;}
 .container{

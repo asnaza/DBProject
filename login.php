@@ -13,6 +13,7 @@
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       $active = $row['Active'];
       
+	//Check if there is data in the DB
       $count = mysqli_num_rows($result);
       
       // If result matched $myusername and $mypassword, table row must be 1 row
